@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="sm41.fhict.org.shakeapp.MainActivity">
+    tools:context="fhict.sm41_shakeit.MainActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

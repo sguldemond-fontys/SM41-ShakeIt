@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="sm41.fhict.org.shakeapp">
+    package="fhict.sm41_shakeit">
 
     <application
         android:allowBackup="true"

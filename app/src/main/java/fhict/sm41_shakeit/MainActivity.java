@@ -1,4 +1,4 @@
-package sm41.fhict.org.shakeapp;
+package fhict.sm41_shakeit;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
