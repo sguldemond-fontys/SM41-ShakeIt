@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">SM41-ShakeIt</string>
     <string name="action_settings">Settings</string>
+    <string name="instellingen">Instellingen</string>
+    <string name="contacten">Contacten</string>
+    <string name="ontmoeten">Mensen ontmoeten</string>
+    <string name="personen">Aantal personen</string>
+    <string name="range">Kilometer range</string>
+    <string name="budget">Budget  €</string>
+    <string name="tijd">Tijd</string>
+    <string name="minuten">Min</string>
+    <string name="shake">Shake it!</string>
+    <string name="activiteit_naam">Shake it!</string>
 </resources>
