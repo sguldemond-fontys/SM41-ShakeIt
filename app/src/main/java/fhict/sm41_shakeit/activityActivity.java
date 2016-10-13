@@ -30,10 +30,9 @@ public class activityActivity extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(activityActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
     }
-
-
 }
