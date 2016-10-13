@@ -13,7 +13,7 @@ public class ShakeDetector implements SensorEventListener {
     private Boolean startup = true;
 
     // Minimum acceleration needed to count as a shake movement
-    private static final int MIN_SHAKE_ACCELERATION = 5;
+    private static final int MIN_SHAKE_ACCELERATION = 3;
 
     // Minimum number of movements to register a shake
     private static final int MIN_MOVEMENTS = 2;
@@ -47,7 +47,7 @@ public class ShakeDetector implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // This method will be called when the accelerometer detects a change.
-        if(startup == false) {
+        //if(startup == false) {
             // Call a helper method that wraps code from the Android developer site
             setCurrentAcceleration(event);
 
@@ -83,8 +83,8 @@ public class ShakeDetector implements SensorEventListener {
                     }
                 }
             }
-        }
-        startup = false;
+        //}
+        //startup = false;
     }
 
     @Override

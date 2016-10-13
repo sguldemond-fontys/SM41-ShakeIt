@@ -12,4 +12,6 @@
     <string name="shake">Shake it!</string>
     <string name="activiteit_naam">Shake it!</string>
     <string name="continue_button">">"</string>
+    <string name="acceptActivityButton">"Accept activity!"</string>
+    <string name="denyActivityButton">"Deny activity!"</string>
 </resources>

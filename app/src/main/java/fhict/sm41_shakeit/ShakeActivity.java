@@ -16,6 +16,7 @@ public class ShakeActivity extends AppCompatActivity {
     private ShakeDetector mShakeDetector;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
+    private Boolean startup = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,19 @@ public class ShakeActivity extends AppCompatActivity {
         mShakeDetector = new ShakeDetector(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake() {
-                    Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
-                    startActivity(intent);
+                    if(startup != true) {
+                        Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        startup = false;
+                    }
             }
         });
     }
+
+
 
     @Override
     protected void onResume() {
