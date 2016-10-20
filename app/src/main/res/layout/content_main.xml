@@ -34,6 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/contacten" />
                 <Switch
+                    android:id="@+id/contacten"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
             </TableRow>
@@ -43,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ontmoeten" />
                 <Switch
+                    android:id="@+id/ontmoeten"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
             </TableRow>

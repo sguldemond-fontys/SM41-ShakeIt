@@ -6,6 +6,7 @@ import android.location.Location;
  * Created by stasiuz on 20/10/16.
  */
 public class Locatie {
+
     private String naam;
     private String plaats;
     private String postcode;
@@ -22,5 +23,25 @@ public class Locatie {
         this.huisnummer = huisnummer;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public String getStraat() {
+        return straat;
+    }
+
+    public String getHuisnummer() {
+        return huisnummer;
     }
 }

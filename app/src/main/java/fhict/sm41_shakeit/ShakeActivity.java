@@ -17,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import android.view.GestureDetector;
 import database.BackgroundWorker;
 import domain.Activiteit;
@@ -27,6 +30,7 @@ import domain.Meeting;
 import domain.Shake;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -39,18 +43,18 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Boolean startup = true;
-
+    private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
-
+    private int index;
     LocationManager locationManager;
-    private GestureDetector gestureDetector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shake);
-
+        activities = new ArrayList<>();
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -75,22 +79,19 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
             @Override
             public void onClick(View view) {
                 //addShake();
-                addMeeting();
+                //addMeeting();
+                Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
+                startActivity(intent);
             }
         });
-        gestureDetector = new GestureDetector(new SwipeGestureDetector());
+
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (gestureDetector.onTouchEvent(event)) {
-            return true;
-        }
-        return super.onTouchEvent(event);
-    }
+
 
     private void addShake() {
+
         String type = "shake";
 
         Date now = new Date();
@@ -106,6 +107,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
         BackgroundWorker bw = new BackgroundWorker(this);
         bw.execute(type, shake, null);
+
     }
 
     private void addMeeting() {
@@ -200,35 +202,6 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         locationManager.removeUpdates(this);
     }
 
-    private void onRightSwipe() {
-        Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
-        toast.show();
-    }
 
-    private class SwipeGestureDetector extends SimpleOnGestureListener {
-        // Swipe properties, you can change it to make the swipe
-        // longer or shorter and speed
-        private static final int SWIPE_MIN_DISTANCE = 120;
-        private static final int SWIPE_MAX_OFF_PATH = 200;
-        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2,
-                               float velocityX, float velocityY) {
-            try {
-                float diffAbs = Math.abs(e1.getY() - e2.getY());
-                float diff = e1.getX() - e2.getX();
-
-                if (diffAbs > SWIPE_MAX_OFF_PATH)
-                    return false;
-                if (-diff > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    ShakeActivity.this.onRightSwipe();
-                }
-            } catch (Exception e) {
-
-            }
-            return false;
-        }
-    }
 }
