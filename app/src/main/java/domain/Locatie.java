@@ -25,6 +25,7 @@ public class Locatie {
         this.lon = lon;
     }
 
+
     public String getNaam() {
         return naam;
     }
@@ -44,4 +45,12 @@ public class Locatie {
     public String getHuisnummer() {
         return huisnummer;
     }
+
+    public double getLat() {
+        return lat;
+    }
+    public double getLon() {
+        return lon;
+    }
+
 }
