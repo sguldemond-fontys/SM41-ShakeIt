@@ -19,6 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import database.BackgroundWorker;
+import domain.Activiteit;
+import domain.Gebruiker;
+import domain.Locatie;
+import domain.Meeting;
 import domain.Shake;
 
 /**
@@ -48,7 +52,6 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         mShakeDetector = new ShakeDetector(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake() {
-                    addShake();
 
                     if(startup != true) {
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
@@ -66,7 +69,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         btnShake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addShake();
+                //addShake();
+                addMeeting();
             }
         });
     }
@@ -87,6 +91,23 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
         BackgroundWorker bw = new BackgroundWorker(this);
         bw.execute(type, shake, null);
+    }
+
+    private void addMeeting() {
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
+        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie);
+        Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
+
+
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String currentTime = sdf.format(now);
+
+        Meeting meeting = new Meeting(gebruiker, activiteit, currentTime);
+
+        BackgroundWorker bw = new BackgroundWorker(this);
+
+        bw.execute("meeting", meeting, null);
     }
 
 
