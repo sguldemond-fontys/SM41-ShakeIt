@@ -109,14 +109,11 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
             ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
             Picasso.with(getApplicationContext()).load(activities.get(index).getAfbeeldingUrl()).into(afbeelding);
             TextView naam = (TextView) findViewById(R.id.activiteitNaam);
-
-            naam.setText(activities.get(index).getNaam());
-            TextView bedrijf = (TextView) findViewById(R.id.activiteitBedrijf);
-            bedrijf.setText(activities.get(index).getNaam());
+            naam.setText(activities.get(index).getLocatie().getNaam());
             TextView straat = (TextView) findViewById(R.id.activiteitStraat);
-            straat.setText(activities.get(index).getLocatie().getStraat());
+            straat.setText(activities.get(index).getLocatie().getStraat() + " " +activities.get(index).getLocatie().getHuisnummer());
             TextView postcode = (TextView) findViewById(R.id.activiteitPostcode);
-            postcode.setText(activities.get(index).getLocatie().getPostcode());
+            postcode.setText(activities.get(index).getLocatie().getPostcode() + " " + activities.get(index).getLocatie().getPlaats());
             TextView telnr = (TextView) findViewById(R.id.activiteitTelnr);
             telnr.setText(activities.get(index).getNaam());
             TextView site = (TextView) findViewById(R.id.activiteitSite);
