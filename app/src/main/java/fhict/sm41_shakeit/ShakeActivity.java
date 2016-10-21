@@ -200,6 +200,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 startActivity(intent);
                 return true;
 
+
         }
         return false;
     }
