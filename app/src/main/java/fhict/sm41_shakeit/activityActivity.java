@@ -115,11 +115,11 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
             TextView postcode = (TextView) findViewById(R.id.activiteitPostcode);
             postcode.setText(activities.get(index).getLocatie().getPostcode() + " " + activities.get(index).getLocatie().getPlaats());
             TextView telnr = (TextView) findViewById(R.id.activiteitTelnr);
-            telnr.setText(activities.get(index).getNaam());
+            telnr.setText(activities.get(index).getLocatie().getTelefoonnummer());
             TextView site = (TextView) findViewById(R.id.activiteitSite);
-            site.setText(activities.get(index).getNaam());
+            site.setText(activities.get(index).getLocatie().getWebsite());
             TextView prijs = (TextView) findViewById(R.id.activiteitPrijs);
-            prijs.setText(Double.toString(activities.get(index).getPrijs()));
+            prijs.setText("€"+" "+Double.toString(activities.get(index).getPrijs()));
             index++;
         }
 
