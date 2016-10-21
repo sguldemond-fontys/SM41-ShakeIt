@@ -11,7 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="fhict.sm41_shakeit.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/instellingen" />
+            android:text="@string/instellingen"
+            style="@style/TextStyleBig"/>
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,69 +34,70 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contacten" />
-                <Switch
-                    android:id="@+id/contacten"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ontmoeten" />
+                    android:text="@string/ontmoeten"
+                    style="@style/TextStyle"/>
                 <Switch
                     android:id="@+id/ontmoeten"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/personen" />
+                    android:text="@string/personen"
+                    style="@style/TextStyle"/>
                 <EditText
                     android:id="@+id/personen"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    style="@style/TextStyle"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/range" />
+                    android:text="@string/range"
+                    style="@style/TextStyle"/>
                 <EditText
                     android:id="@+id/range"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    style="@style/TextStyle"/>
             </TableRow>
             <TableRow>
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="@string/budget" />
+                       android:text="@string/budget"
+                       style="@style/TextStyle"/>
                     <EditText
                         android:id="@+id/budget"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        style="@style/TextStyle"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tijd" />
+                    android:text="@string/tijd"
+                    style="@style/TextStyle"/>
                 <EditText
                     android:id="@+id/tijd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    style="@style/TextStyle"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/minuten" />
+                    android:text="@string/minuten"
+                    style="@style/TextStyle"/>
             </TableRow>
         </TableLayout>
         <Button
@@ -102,7 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:text="@string/continue_button"/>
+            android:text="@string/continue_button"
+            android:textColor="#000000"/>
     </LinearLayout>
 
 </RelativeLayout>

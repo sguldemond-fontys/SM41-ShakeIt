@@ -92,8 +92,7 @@ public class activityActivity extends AppCompatActivity {
     }
 
     private void onRightSwipe() {
-        Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
-        toast.show();
+
         if(activities.size() > index)
         {
             ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
@@ -115,7 +114,11 @@ public class activityActivity extends AppCompatActivity {
             prijs.setText(Double.toString(activities.get(index).getPrijs()));
             index++;
         }
-
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.noActivities), Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     private class SwipeGestureDetector extends SimpleOnGestureListener {
