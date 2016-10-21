@@ -3,6 +3,10 @@ package database;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,6 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import domain.Activiteit;
 import domain.Gebruiker;
@@ -24,10 +30,20 @@ import domain.Shake;
  * Created by Stan Guldemond on 07/10/16.
  */
 public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
+    AsyncResponce delegate = null;
+
     Context context;
 
-    public BackgroundWorker(Context context) {
+    String meeting_result;
+
+    List<Activiteit> activiteiten_result;
+
+    public BackgroundWorker(Context context, AsyncResponce delegate) {
+        this.delegate = delegate;
         this.context = context;
+        meeting_result = null;
+
+        activiteiten_result = new ArrayList<>();
     }
 
     @Override
@@ -76,7 +92,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             }
         }
 
-        if(type.equals("meeting")) {
+        else if(type.equals("meeting")) {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_meeting.php";
 
@@ -121,15 +137,15 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             }
         }
 
-        if(type.equals("find_meeting")) {
+        else if(type.equals("find_meeting")) {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
 
-                int activiteitid = (int) params[1];
+                Activiteit activiteit = (Activiteit) params[1];
 
 
                 URL url = new URL(shake_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -137,15 +153,22 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(Integer.toString(activiteitid), "UTF-8");
+                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(Integer.toString(activiteit.getId()), "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result = bufferedReader.readLine();
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = "";
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result += line;
+                }
 
                 return result;
 
@@ -155,6 +178,38 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 e.printStackTrace();
             }
         }
+
+        else if(type.equals("get_activities")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/get_activities.php/";
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = "";
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result += line;
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
@@ -164,8 +219,11 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
     }
 
     @Override
-    protected void onPostExecute(Object aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Object result) {
+        super.onPostExecute(result);
+
+
+        delegate.processFinish(result);
     }
 
     @Override

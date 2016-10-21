@@ -18,22 +18,30 @@ import android.view.View;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import android.view.GestureDetector;
+
+import database.AsyncResponce;
 import database.BackgroundWorker;
 import domain.Activiteit;
 import domain.Gebruiker;
 import domain.Locatie;
 import domain.Meeting;
 import domain.Shake;
+import logic.JSONDecoder;
+
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.widget.Toast;
+
+import org.json.JSONException;
 
 /**
  * Created by Sander on 6-10-2016.
  */
 
-public class ShakeActivity extends AppCompatActivity implements LocationListener {
+public class ShakeActivity extends AppCompatActivity implements LocationListener, AsyncResponce {
 
     private ShakeDetector mShakeDetector;
     private SensorManager mSensorManager;
@@ -75,7 +83,9 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
             @Override
             public void onClick(View view) {
                 //addShake();
-                addMeeting();
+                //addMeeting();
+                //findMeeting();
+                getActivities();
             }
         });
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
@@ -104,7 +114,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
         Shake shake = new Shake(2, (float)currentLatitude, (float)currentLongitude, currentTime);
 
-        BackgroundWorker bw = new BackgroundWorker(this);
+        BackgroundWorker bw = new BackgroundWorker(this, this);
         bw.execute(type, shake, null);
     }
 
@@ -120,9 +130,28 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
         Meeting meeting = new Meeting(gebruiker, activiteit, currentTime);
 
-        BackgroundWorker bw = new BackgroundWorker(this);
+        BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bw.execute("meeting", meeting, null);
+    }
+
+    private void findMeeting() {
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
+        Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie);
+
+        Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie);
+
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("find_meeting", activiteit1, null);
+
+    }
+
+    private void getActivities() {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("get_activities", null, null);
+
     }
 
 
@@ -203,6 +232,17 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private void onRightSwipe() {
         Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    @Override
+    public void processFinish(Object output) {
+        System.out.println((String)output);
+
+        try {
+            List<Activiteit> activiteitList = JSONDecoder.decodeAllActivitiesJSON((String)output);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private class SwipeGestureDetector extends SimpleOnGestureListener {
