@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,18 +48,18 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Boolean startup = true;
-
+    private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
-
+    private int index;
     LocationManager locationManager;
-    private GestureDetector gestureDetector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shake);
-
+        activities = new ArrayList<>();
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -86,21 +87,18 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 //addMeeting();
                 //findMeeting();
                 getActivities();
+
+                Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
+
+                startActivity(intent);
             }
         });
-        gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
-    }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (gestureDetector.onTouchEvent(event)) {
-            return true;
-        }
-        return super.onTouchEvent(event);
     }
 
     private void addShake() {
+
         String type = "shake";
 
         Date now = new Date();
@@ -120,7 +118,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
     private void addMeeting() {
         Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
-        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie);
+        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
         Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
 
 
@@ -137,9 +135,9 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
     private void findMeeting() {
         Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
-        Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie);
+        Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie, null);
 
-        Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie);
+        Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie, null);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
@@ -200,7 +198,6 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 startActivity(intent);
                 return true;
 
-
         }
         return false;
     }
@@ -230,46 +227,15 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         locationManager.removeUpdates(this);
     }
 
-    private void onRightSwipe() {
-        Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
-        toast.show();
-    }
 
     @Override
     public void processFinish(Object output) {
-        System.out.println((String)output);
+        System.out.println((String) output);
 
         try {
-            List<Activiteit> activiteitList = JSONDecoder.decodeAllActivitiesJSON((String)output);
+            activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class SwipeGestureDetector extends SimpleOnGestureListener {
-        // Swipe properties, you can change it to make the swipe
-        // longer or shorter and speed
-        private static final int SWIPE_MIN_DISTANCE = 120;
-        private static final int SWIPE_MAX_OFF_PATH = 200;
-        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2,
-                               float velocityX, float velocityY) {
-            try {
-                float diffAbs = Math.abs(e1.getY() - e2.getY());
-                float diff = e1.getX() - e2.getX();
-
-                if (diffAbs > SWIPE_MAX_OFF_PATH)
-                    return false;
-                if (-diff > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    ShakeActivity.this.onRightSwipe();
-                }
-            } catch (Exception e) {
-
-            }
-            return false;
         }
     }
 }

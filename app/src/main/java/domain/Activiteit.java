@@ -10,13 +10,15 @@ public class Activiteit {
     private double prijs;
     private int duur;
     private Locatie locatie;
+    private String afbeeldingUrl;
 
-    public Activiteit(int id, String naam, double prijs, int duur, Locatie locatie) {
+    public Activiteit(int id, String naam, double prijs, int duur, Locatie locatie, String afbeeldingUrl) {
         this.id = id;
         this.naam = naam;
         this.prijs = prijs;
         this.duur = duur;
         this.locatie = locatie;
+        this.afbeeldingUrl = afbeeldingUrl;
     }
 
     public int getId() {
@@ -37,5 +39,9 @@ public class Activiteit {
 
     public Locatie getLocatie() {
         return locatie;
+    }
+
+    public String getAfbeeldingUrl() {
+        return afbeeldingUrl;
     }
 }

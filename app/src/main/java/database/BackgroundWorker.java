@@ -222,7 +222,6 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
     protected void onPostExecute(Object result) {
         super.onPostExecute(result);
 
-
         delegate.processFinish(result);
     }
 

@@ -25,7 +25,7 @@ public class JSONDecoder {
 
         for(int i = 0; i < n; ++i) {
             JSONObject j = array.getJSONObject(i);
-            Activiteit a = new Activiteit(j.getInt("ActiviteitID"), j.getString("Naam"), j.getDouble("Prijs"), j.getInt("Duur"), new Locatie(j.getString("Bedrijfsnaam"), j.getString("Plaats"), j.getString("Postcode"), j.getString("Straat"), j.getString("Huisnummer"), j.getDouble("Latitude"), j.getDouble("Longitude")));
+            Activiteit a = new Activiteit(j.getInt("ActiviteitID"), j.getString("Naam"), j.getDouble("Prijs"), j.getInt("Duur"), new Locatie(j.getString("Bedrijfsnaam"), j.getString("Plaats"), j.getString("Postcode"), j.getString("Straat"), j.getString("Huisnummer"), j.getDouble("Latitude"), j.getDouble("Longitude")), j.getString("Plaatje"));
             activities.add(a);
         }
 

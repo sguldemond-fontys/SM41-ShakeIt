@@ -23,4 +23,33 @@ public class Locatie {
         this.lat = lat;
         this.lon = lon;
     }
+
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public String getStraat() {
+        return straat;
+    }
+
+    public String getHuisnummer() {
+        return huisnummer;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+    public double getLon() {
+        return lon;
+    }
+
 }

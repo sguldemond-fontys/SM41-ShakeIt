@@ -7,7 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import domain.Gebruiker;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText range = (EditText) findViewById(R.id.range);
         final EditText budget = (EditText) findViewById(R.id.budget);
         final EditText tijd = (EditText) findViewById(R.id.tijd);
-
+        final Switch ontmoeten = (Switch) findViewById(R.id.ontmoeten);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +57,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                    if(ontmoeten.isChecked()) {
+                        try {
+                            Gebruiker gebruiker = new Gebruiker(1, "", dateFormat.parse("20/10/2106"), 1, Integer.parseInt(range.getText().toString()), Double.parseDouble(budget.getText().toString()));
+                        } catch (ParseException e)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        try {
+                            Gebruiker gebruiker = new Gebruiker(1, "", dateFormat.parse("20/10/2106"), 0, Integer.parseInt(range.getText().toString()), Double.parseDouble(budget.getText().toString()));
+                        } catch (ParseException e)
+                        {
+
+                        }
+                    }
+
                     Intent intent = new Intent(MainActivity.this, ShakeActivity.class);
                     startActivity(intent);
                 }
