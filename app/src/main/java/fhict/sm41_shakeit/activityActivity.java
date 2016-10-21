@@ -1,8 +1,11 @@
 package fhict.sm41_shakeit;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import domain.Activiteit;
 import domain.Locatie;
 
@@ -31,13 +35,14 @@ public class activityActivity extends AppCompatActivity {
     private Activiteit activiteit;
     Locatie locatie;
     int index = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
         activities = new ArrayList<>();
         Locatie locatie = new Locatie("Fontys", "Eindhoven", "5056AA", "schoolstraat", "1", 50, 50);
-        activiteit = new Activiteit(1,"Sander", 30, 60, locatie);
+        activiteit = new Activiteit(1,"Sander", 30, 60, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
         activities.add(activiteit);
         Button deny = (Button) findViewById(R.id.denyActivity);
         deny.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +97,9 @@ public class activityActivity extends AppCompatActivity {
         if(activities.size() > index)
         {
             ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
+            Picasso.with(getApplicationContext()).load(activities.get(index).getAfbeeldingUrl()).into(afbeelding);
             TextView naam = (TextView) findViewById(R.id.activiteitNaam);
+
             naam.setText(activities.get(index).getNaam());
             TextView bedrijf = (TextView) findViewById(R.id.activiteitBedrijf);
             bedrijf.setText(activities.get(index).getNaam());

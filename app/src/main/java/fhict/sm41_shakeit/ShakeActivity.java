@@ -20,18 +20,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import android.view.GestureDetector;
 import database.BackgroundWorker;
 import domain.Activiteit;
 import domain.Gebruiker;
 import domain.Locatie;
 import domain.Meeting;
 import domain.Shake;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 /**
  * Created by Sander on 6-10-2016.
@@ -112,7 +107,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
     private void addMeeting() {
         Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
-        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie);
+        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
         Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
 
 
