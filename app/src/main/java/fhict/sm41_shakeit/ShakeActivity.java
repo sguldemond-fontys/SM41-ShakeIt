@@ -69,6 +69,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
                     if(startup != true) {
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
+                        intent.putExtra("shakelat",currentLatitude);
+                        intent.putExtra("shakelon",currentLatitude);
                         startActivity(intent);
                     }
                     else
@@ -89,7 +91,10 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 getActivities();
 
                 Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
-
+                intent.putExtra("shakelat",currentLatitude);
+                System.out.println(currentLatitude);
+                intent.putExtra("shakelon",currentLatitude);
+                System.out.println(currentLatitude);
                 startActivity(intent);
             }
         });
