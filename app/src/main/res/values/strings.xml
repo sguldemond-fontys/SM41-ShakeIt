@@ -14,4 +14,6 @@
     <string name="continue_button">">"</string>
     <string name="acceptActivityButton">"Accept activity!"</string>
     <string name="denyActivityButton">"Deny activity!"</string>
+    <string name="noActivities">"Er zijn geen activiteiten die aan uw eisen voldoen"</string>
+
 </resources>
