@@ -44,14 +44,6 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
         activities = new ArrayList<>();
         getActivities();
 
-        Button deny = (Button) findViewById(R.id.denyActivity);
-        deny.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AcceptActivity.this, ShakeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Button accept = (Button) findViewById(R.id.acceptActivity);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +102,6 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
             straat.setText(activities.get(index).getLocatie().getStraat() + " " +activities.get(index).getLocatie().getHuisnummer());
             TextView postcode = (TextView) findViewById(R.id.activiteitPostcode);
             postcode.setText(activities.get(index).getLocatie().getPostcode() + " " + activities.get(index).getLocatie().getPlaats());
-            TextView telnr = (TextView) findViewById(R.id.activiteitTelnr);
-            telnr.setText(activities.get(index).getLocatie().getTelefoonnummer());
-            TextView site = (TextView) findViewById(R.id.activiteitSite);
-            site.setText(activities.get(index).getLocatie().getWebsite());
-            TextView prijs = (TextView) findViewById(R.id.activiteitPrijs);
-            prijs.setText("€"+" "+Double.toString(activities.get(index).getPrijs()));
             index++;
         }
 

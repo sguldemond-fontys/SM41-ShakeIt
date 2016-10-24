@@ -55,14 +55,6 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
         activities = new ArrayList<>();
         getActivities();
 
-        Button deny = (Button) findViewById(R.id.denyActivity);
-        deny.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activityActivity.this, ShakeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Button accept = (Button) findViewById(R.id.acceptActivity);
         accept.setOnClickListener(new View.OnClickListener() {

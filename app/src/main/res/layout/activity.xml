@@ -24,41 +24,10 @@
         android:id="@+id/activiteitStraat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="activiteitStraat"
+        android:text="activiteitAfstand"
         android:layout_gravity="center"
         style="@style/TextStyle"/>
 
-    <TextView
-        android:id="@+id/activiteitPostcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitPostcode"
-        android:layout_gravity="center"
-        style="@style/TextStyle"/>
-
-    <TextView
-        android:id="@+id/activiteitTelnr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitTelnr"
-        android:layout_gravity="center"
-        style="@style/TextStyle"/>
-
-    <TextView
-        android:id="@+id/activiteitSite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitSite"
-        android:layout_gravity="center"
-        style="@style/TextStyle"/>
-
-    <TextView
-        android:id="@+id/activiteitPrijs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitPrijs"
-        android:layout_gravity="center"
-        style="@style/TextStyle"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -69,12 +38,6 @@
             android:text="@string/acceptActivityButton"
             android:layout_weight="5"/>
 
-        <Button
-            android:id="@+id/denyActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/denyActivityButton"
-            android:layout_weight="5"/>
     </LinearLayout>
 
 </LinearLayout>
