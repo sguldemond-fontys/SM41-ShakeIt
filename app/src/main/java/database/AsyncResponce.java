@@ -5,5 +5,5 @@ package database;
  */
 
 public interface AsyncResponce {
-    void processFinish(Object output);
+    void processFinish(String type, Object output);
 }

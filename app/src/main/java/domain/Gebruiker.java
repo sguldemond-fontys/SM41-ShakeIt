@@ -14,6 +14,8 @@ public class Gebruiker {
     private int radius;
     private double budget;
 
+    public Gebruiker(int id) { this.id = id; }
+
     public Gebruiker(int id, String naam, Date geboorteDatum, int wilOntmoeten, int radius, double budget) {
         this.id = id;
         this.naam = naam;

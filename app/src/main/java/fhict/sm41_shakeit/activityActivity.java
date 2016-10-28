@@ -21,13 +21,17 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import database.AsyncResponce;
 import database.BackgroundWorker;
 import domain.Activiteit;
+import domain.Gebruiker;
 import domain.Locatie;
+import domain.Meeting;
 import logic.JSONDecoder;
 
 /**
@@ -40,6 +44,9 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     private List<Activiteit> activities;
 
     int index = 0;
+
+    private int meetingID = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                findMeeting();
 
             }
         });
@@ -71,6 +79,24 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bw.execute("get_activities", null, null);
+    }
+
+    private void findMeeting() {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("find_meeting", activities.get(index), null);
+    }
+
+    private void addMeeting() {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String currentTime = sdf.format(now);
+
+        Meeting meeting = new Meeting(new Gebruiker(1), activities.get(index), currentTime);
+
+        bw.execute("meeting", meeting, null);
     }
 
     @Override
@@ -129,12 +155,28 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     }
 
     @Override
-    public void processFinish(Object output) {
-        try {
-            activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void processFinish(String type, Object output) {
+        System.out.println((String) output);
+
+        if(type.equals("get_activities")) {
+            try {
+
+                activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
+        if(type.equals("find_meeting")) {
+            if(output != null) {
+                meetingID = Integer.parseInt((String)output);
+                System.out.println("Meeting found: " + meetingID);
+            } else {
+                addMeeting();
+            }
+
+        }
+
     }
 
     private class SwipeGestureDetector extends SimpleOnGestureListener {

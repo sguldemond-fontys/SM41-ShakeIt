@@ -229,13 +229,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
 
     @Override
-    public void processFinish(Object output) {
+    public void processFinish(String type, Object output) {
         System.out.println((String) output);
 
-        try {
-            activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }

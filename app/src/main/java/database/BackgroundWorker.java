@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import domain.Activiteit;
@@ -38,6 +39,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
 
     List<Activiteit> activiteiten_result;
 
+    String type;
+
     public BackgroundWorker(Context context, AsyncResponce delegate) {
         this.delegate = delegate;
         this.context = context;
@@ -49,9 +52,45 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
     @Override
     protected String doInBackground(Object... params) {
 
-        String type = (String)params[0];
+        type = (String)params[0];
 
-        if(type.equals("shake")) {
+        if(type.equals("login")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/login.php";
+
+                String[] gebruiker = (String[]) params[1];
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
+                        + URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("shake")) {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_shake.php";
 
@@ -143,7 +182,6 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
 
                 Activiteit activiteit = (Activiteit) params[1];
 
-
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
@@ -162,13 +200,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String result = "";
-
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    result += line;
-                }
+                String result = reader.readLine();
 
                 return result;
 
@@ -222,7 +254,9 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
     protected void onPostExecute(Object result) {
         super.onPostExecute(result);
 
-        delegate.processFinish(result);
+        delegate.processFinish(type, result);
+
+
     }
 
     @Override
