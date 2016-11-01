@@ -47,7 +47,6 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private ShakeDetector mShakeDetector;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private Boolean startup = true;
     private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
@@ -66,20 +65,13 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         mShakeDetector = new ShakeDetector(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake() {
-
-                    if(startup != true) {
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                         intent.putExtra("shakelat",currentLatitude);
                         intent.putExtra("shakelon",currentLatitude);
                         startActivity(intent);
-                    }
-                    else
-                    {
-                        startup = false;
-                    }
             }
         });
-
+/*
         Button btnShake = (Button) findViewById(R.id.button);
 
         btnShake.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +89,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 System.out.println(currentLatitude);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
     }
@@ -212,7 +204,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         // OnResume is called any time that the application begins again.
         super.onResume();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
