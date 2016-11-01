@@ -13,8 +13,10 @@ public class Locatie {
     private String huisnummer;
     private double lat;
     private double lon;
+    private String website;
+    private String telefoonnummer;
 
-    public Locatie(String naam, String plaats, String postcode, String straat, String huisnummer, double lat, double lon) {
+    public Locatie(String naam, String plaats, String postcode, String straat, String huisnummer, double lat, double lon , String website , String telefoonnummer) {
         this.naam = naam;
         this.plaats = plaats;
         this.postcode = postcode;
@@ -22,6 +24,8 @@ public class Locatie {
         this.huisnummer = huisnummer;
         this.lat = lat;
         this.lon = lon;
+        this.website = website;
+        this.telefoonnummer = telefoonnummer;
     }
 
 
@@ -50,6 +54,12 @@ public class Locatie {
     }
     public double getLon() {
         return lon;
+    }
+    public String getWebsite() {
+        return website;
+    }
+    public String getTelefoonnummer() {
+        return telefoonnummer;
     }
 
 }

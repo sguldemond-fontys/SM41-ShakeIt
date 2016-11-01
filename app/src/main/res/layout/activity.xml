@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/activiteitAfbeelding"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        >
     </ImageView>
 
     <TextView
@@ -15,49 +17,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="activiteitNaam"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/activiteitBedrijf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitBedrijf"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        style="@style/TextStyle"/>
 
     <TextView
         android:id="@+id/activiteitStraat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="activiteitStraat"
-        android:layout_gravity="center"/>
+        android:text="activiteitAfstand"
+        android:layout_gravity="center"
+        style="@style/TextStyle"/>
 
-    <TextView
-        android:id="@+id/activiteitPostcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitPostcode"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/activiteitTelnr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitTelnr"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/activiteitSite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitSite"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/activiteitPrijs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activiteitPrijs"
-        android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -68,12 +38,6 @@
             android:text="@string/acceptActivityButton"
             android:layout_weight="5"/>
 
-        <Button
-            android:id="@+id/denyActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/denyActivityButton"
-            android:layout_weight="5"/>
     </LinearLayout>
 
 </LinearLayout>

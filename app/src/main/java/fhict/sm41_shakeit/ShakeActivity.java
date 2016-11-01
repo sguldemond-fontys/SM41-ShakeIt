@@ -69,6 +69,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
                     if(startup != true) {
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
+                        intent.putExtra("shakelat",currentLatitude);
+                        intent.putExtra("shakelon",currentLatitude);
                         startActivity(intent);
                     }
                     else
@@ -89,7 +91,10 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 getActivities();
 
                 Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
-
+                intent.putExtra("shakelat",currentLatitude);
+                System.out.println(currentLatitude);
+                intent.putExtra("shakelon",currentLatitude);
+                System.out.println(currentLatitude);
                 startActivity(intent);
             }
         });
@@ -117,7 +122,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     }
 
     private void addMeeting() {
-        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959 , "karten.nl" , "040123532");
         Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
         Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
 
@@ -134,7 +139,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     }
 
     private void findMeeting() {
-        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959);
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959, "karten.nl" , "040123532");
         Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie, null);
 
         Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie, null);
