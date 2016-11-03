@@ -4,12 +4,18 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <Button
+        android:text="@string/terug"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        style="@style/basic_button"/>
+
     <ImageView
         android:id="@+id/activiteitAfbeelding"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        >
+        android:layout_height="300dp">
     </ImageView>
 
     <TextView
@@ -18,7 +24,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitNaam"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyleBig"
+        android:paddingTop="20dp" />
 
     <TextView
         android:id="@+id/activiteitStraat"
@@ -26,7 +33,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitAfstand"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -34,9 +42,11 @@
         <Button
             android:id="@+id/acceptActivity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="73dp"
             android:text="@string/acceptActivityButton"
-            android:layout_weight="5"/>
+            android:layout_weight="5"
+            style="@style/basic_button"
+            android:paddingTop="20dp" />
 
     </LinearLayout>
 

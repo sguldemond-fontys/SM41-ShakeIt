@@ -53,6 +53,16 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
             }
         });
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
+
+        Button btnTerug = (Button) findViewById(R.id.button3);
+
+        btnTerug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AcceptActivity.this, ShakeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getActivities() {
@@ -108,10 +118,11 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
     }
 
     @Override
-    public void processFinish(Object output) {
+    public void processFinish(String type, Object output) {
         try {
             activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
         } catch (JSONException e) {
+
             e.printStackTrace();
         }
     }

@@ -1,24 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
+
+    <Button
+        android:text="@string/do_shake"
+        android:layout_width="99dp"
+        android:layout_height="31dp"
+        android:id="@+id/button"
+        android:layout_weight="0.10" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/shake"
-        android:layout_gravity="center">
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:src="@drawable/shake2"
+        android:layout_gravity="center"
+        android:layout_weight="0.76"
+        android:contentDescription="@string/activiteit_naam">
     </ImageView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/shake"
-        style="@style/TextStyleBig"/>/>
-    <Button
-        android:text="Button"
+        style="@style/TextStyleBig"
+        android:textStyle="normal|bold"
+        android:textSize="60sp"
+        android:paddingTop="40dp" />
+
+    <TextView
+        android:text="@string/verander"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button" />
+        android:id="@+id/textView2"
+        style="@style/TextStyle.TextMedium"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:paddingTop="30dp" />
+
+    <Button
+        android:text="@string/jouw_voorkeuren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+
+        android:layout_weight="0.08"
+        style="@style/basic_button" />
 </LinearLayout>

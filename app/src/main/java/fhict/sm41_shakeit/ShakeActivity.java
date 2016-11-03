@@ -71,7 +71,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                         startActivity(intent);
             }
         });
-/*
+
         Button btnShake = (Button) findViewById(R.id.button);
 
         btnShake.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,17 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 System.out.println(currentLatitude);
                 startActivity(intent);
             }
-        });*/
+        });
+
+        Button btnVoorkeuren = (Button) findViewById(R.id.button2);
+
+        btnVoorkeuren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShakeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

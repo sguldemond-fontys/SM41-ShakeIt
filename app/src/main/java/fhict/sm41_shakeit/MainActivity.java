@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button continueButton = (Button) findViewById(R.id.continueButton);
-        final EditText personen = (EditText) findViewById(R.id.personen);
+        //final EditText personen = (EditText) findViewById(R.id.personen);
         final EditText range = (EditText) findViewById(R.id.range);
         final EditText budget = (EditText) findViewById(R.id.budget);
         final EditText tijd = (EditText) findViewById(R.id.tijd);
@@ -35,12 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 Context context = getApplicationContext();
                 CharSequence text;
                 int duration = Toast.LENGTH_SHORT;
-                if(personen.length() < 1) {
-                    text = "Vul het aantal personen in";
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                else if(range.length() < 1) {
+
+                if(range.length() < 1) {
                     text = "Vul het maximale aantal km in";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();

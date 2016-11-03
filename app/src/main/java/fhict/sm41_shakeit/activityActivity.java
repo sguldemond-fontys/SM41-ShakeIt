@@ -123,7 +123,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     }
 
     @Override
-    public void processFinish(Object output) {
+    public void processFinish(String type, Object output) {
         try {
             activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
         } catch (JSONException e) {
