@@ -44,6 +44,8 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
         activities = new ArrayList<>();
         getActivities();
 
+        onRightSwipe();
+
 
         Button accept = (Button) findViewById(R.id.acceptActivity);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -52,17 +54,10 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
 
             }
         });
+
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
-        Button btnTerug = (Button) findViewById(R.id.btnTerug);
 
-        btnTerug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AcceptActivity.this, ShakeActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void getActivities() {
@@ -100,8 +95,9 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
     }
 
     private void onRightSwipe() {
-        Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
-        toast.show();
+        //Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
+        //toast.show();
+
         if(activities.size() > index)
         {
             ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);

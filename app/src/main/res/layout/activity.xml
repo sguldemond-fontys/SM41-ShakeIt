@@ -36,6 +36,16 @@
         style="@style/TextStyle.TextMedium"
         android:paddingTop="10dp" />
 
+    <TextView
+        android:text="@string/huidige_locatie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        style="@style/TextStyle.TextMedium"
+        android:textAlignment="center"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -45,8 +55,7 @@
             android:layout_height="73dp"
             android:text="@string/acceptActivityButton"
             android:layout_weight="5"
-            style="@style/basic_button"
-            android:paddingTop="20dp" />
+            style="@style/basic_button" />
 
     </LinearLayout>
 

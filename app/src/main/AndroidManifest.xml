@@ -29,7 +29,8 @@
         <activity android:name=".ShakeActivity" />
         <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name=".activityActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".AcceptActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>

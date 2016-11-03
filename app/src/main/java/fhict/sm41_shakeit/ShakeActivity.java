@@ -50,7 +50,6 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
-    private int index;
     LocationManager locationManager;
 
 
@@ -80,12 +79,12 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 //addShake();
                 //addMeeting();
                 //findMeeting();
-                getActivities();
+                //getActivities();
 
                 Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                 intent.putExtra("shakelat",currentLatitude);
                 System.out.println(currentLatitude);
-                intent.putExtra("shakelon",currentLatitude);
+                intent.putExtra("shakelon",currentLongitude);
                 System.out.println(currentLatitude);
                 startActivity(intent);
             }
@@ -101,6 +100,102 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
             }
         });
 
+
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+
+        System.out.println("Location changed to: " + currentLatitude + ", " + currentLongitude);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(ShakeActivity.this, MainActivity.class);
+                startActivity(intent);
+                return true;
+
+        }
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        // OnResume is called any time that the application begins again.
+        super.onResume();
+        doLocation();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doLocation();
+    }
+
+    private void doLocation() {
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+        onLocationChanged(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+
+    }
+
+    @Override
+    protected void onStop() {
+        // OnStop is called whenever a new activity is started.
+        super.onStop();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        locationManager.removeUpdates(this);
+    }
+
+
+    @Override
+    public void processFinish(String type, Object output) {
+        System.out.println((String) output);
 
     }
 
@@ -159,85 +254,4 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
     }
 
-
-    @Override
-    protected void onPause() {
-        mSensorManager.unregisterListener(mShakeDetector);
-        super.onPause();
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        currentLatitude = location.getLatitude();
-        currentLongitude = location.getLongitude();
-
-        System.out.println("Location changed to: " + currentLatitude + ", " + currentLongitude);
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(ShakeActivity.this, MainActivity.class);
-                startActivity(intent);
-                return true;
-
-        }
-        return false;
-    }
-
-    @Override
-    protected void onResume() {
-        // OnResume is called any time that the application begins again.
-        super.onResume();
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-    }
-
-    @Override
-    protected void onStop() {
-        // OnStop is called whenever a new activity is started.
-        super.onStop();
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        locationManager.removeUpdates(this);
-    }
-
-
-    @Override
-    public void processFinish(String type, Object output) {
-        System.out.println((String) output);
-
-    }
 }

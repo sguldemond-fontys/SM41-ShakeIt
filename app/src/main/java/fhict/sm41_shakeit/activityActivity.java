@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        double shakelat = intent.getDoubleExtra("shakelat",0);
-        double shakelon = intent.getDoubleExtra("shakelon",0);
+        shakelat = intent.getDoubleExtra("shakelat",0);
+        shakelon = intent.getDoubleExtra("shakelon",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
         activities = new ArrayList<>();
@@ -60,10 +61,22 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(activityActivity.this, AcceptActivity.class);
+                startActivity(intent);
             }
         });
+
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
+
+        Button btnTerug = (Button) findViewById(R.id.btnTerug);
+
+        btnTerug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activityActivity.this, ShakeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getActivities() {
@@ -101,21 +114,25 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     }
 
     private void onRightSwipe() {
-        Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
-        toast.show();
+        //Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
+        //toast.show();
         if(activities.size() > index)
         {
             double activiteitlat = activities.get(index).getLocatie().getLat();
             System.out.println(shakelat);
             double activiteitlon = activities.get(index).getLocatie().getLon();
             System.out.println(shakelon);
+            DecimalFormat df = new DecimalFormat("0.##");
+
             Double afstand = DistanceLogic.distance(activiteitlat,activiteitlon,shakelat ,shakelon);
+
+
             ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
             Picasso.with(getApplicationContext()).load(activities.get(index).getAfbeeldingUrl()).into(afbeelding);
             TextView naam = (TextView) findViewById(R.id.activiteitNaam);
             naam.setText(activities.get(index).getNaam());
             TextView straat = (TextView) findViewById(R.id.activiteitStraat);
-            straat.setText(afstand.toString()+" "+ "KM");
+            straat.setText(df.format(afstand) + " km");
 
             index++;
         }
@@ -126,6 +143,8 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     public void processFinish(String type, Object output) {
         try {
             activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
+
+            onRightSwipe();
         } catch (JSONException e) {
             e.printStackTrace();
         }
