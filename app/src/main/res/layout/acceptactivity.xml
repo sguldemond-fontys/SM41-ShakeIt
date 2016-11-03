@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/activiteitAfbeelding"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         >
     </ImageView>
@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitNaam"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/activiteitStraat"
@@ -26,7 +27,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitStraat"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/activiteitPostcode"
@@ -34,7 +36,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitPostcode"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/activiteitTelnr"
@@ -42,7 +45,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitTelnr"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/activiteitSite"
@@ -50,7 +54,8 @@
         android:layout_height="wrap_content"
         android:text="activiteitSite"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/activiteitPrijs"
@@ -58,17 +63,12 @@
         android:layout_height="wrap_content"
         android:text="activiteitPrijs"
         android:layout_gravity="center"
-        style="@style/TextStyle"/>
+        style="@style/TextStyle.TextMedium"
+        android:paddingTop="10dp" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
     </LinearLayout>
-
-    <TextView
-        android:text="MatchInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MatchInfo" />
 
 </LinearLayout>

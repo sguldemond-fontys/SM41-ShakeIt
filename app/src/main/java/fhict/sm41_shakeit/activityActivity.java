@@ -1,11 +1,8 @@
 package fhict.sm41_shakeit;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,20 +13,14 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import database.AsyncResponce;
 import database.BackgroundWorker;
 import domain.Activiteit;
-import domain.Gebruiker;
-import domain.Locatie;
 import logic.DistanceLogic;
 import logic.JSONDecoder;
 
