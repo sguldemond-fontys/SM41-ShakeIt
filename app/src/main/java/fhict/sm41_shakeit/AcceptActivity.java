@@ -40,20 +40,12 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity);
+        setContentView(R.layout.acceptactivity);
         activities = new ArrayList<>();
         getActivities();
 
-        onRightSwipe();
-
-
-        Button accept = (Button) findViewById(R.id.acceptActivity);
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        Intent intent = getIntent();
+        index = intent.getIntExtra("index", 0);
 
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
@@ -98,18 +90,15 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
         //Toast toast = Toast.makeText(getApplicationContext(), "rightswipe", Toast.LENGTH_LONG);
         //toast.show();
 
-        if(activities.size() > index)
-        {
-            ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
-            Picasso.with(getApplicationContext()).load(activities.get(index).getAfbeeldingUrl()).into(afbeelding);
-            TextView naam = (TextView) findViewById(R.id.activiteitNaam);
-            naam.setText(activities.get(index).getLocatie().getNaam());
-            TextView straat = (TextView) findViewById(R.id.activiteitStraat);
-            straat.setText(activities.get(index).getLocatie().getStraat() + " " +activities.get(index).getLocatie().getHuisnummer());
-            TextView postcode = (TextView) findViewById(R.id.activiteitPostcode);
-            postcode.setText(activities.get(index).getLocatie().getPostcode() + " " + activities.get(index).getLocatie().getPlaats());
-            index++;
-        }
+        ImageView afbeelding = (ImageView) findViewById(R.id.activiteitAfbeelding);
+        Picasso.with(getApplicationContext()).load(activities.get(index).getAfbeeldingUrl()).into(afbeelding);
+        TextView naam = (TextView) findViewById(R.id.activiteitNaam);
+        naam.setText(activities.get(index).getLocatie().getNaam());
+        TextView straat = (TextView) findViewById(R.id.activiteitStraat);
+        straat.setText(activities.get(index).getLocatie().getStraat() + " " +activities.get(index).getLocatie().getHuisnummer());
+        TextView postcode = (TextView) findViewById(R.id.activiteitPostcode);
+        postcode.setText(activities.get(index).getLocatie().getPostcode() + " " + activities.get(index).getLocatie().getPlaats());
+
 
     }
 
@@ -117,6 +106,8 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
     public void processFinish(String type, Object output) {
         try {
             activities = JSONDecoder.decodeAllActivitiesJSON((String)output);
+
+            onRightSwipe();
         } catch (JSONException e) {
 
             e.printStackTrace();

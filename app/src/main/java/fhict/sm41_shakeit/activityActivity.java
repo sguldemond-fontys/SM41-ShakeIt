@@ -62,6 +62,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activityActivity.this, AcceptActivity.class);
+                intent.putExtra("index", index);
                 startActivity(intent);
             }
         });
