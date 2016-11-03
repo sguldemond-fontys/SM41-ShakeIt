@@ -50,6 +50,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
+    private Boolean startup = true;
     private int index;
     LocationManager locationManager;
 
@@ -77,6 +78,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         btnShake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(startup != true) {
                 //addShake();
                 //addMeeting();
                 //findMeeting();
@@ -88,6 +90,11 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                 intent.putExtra("shakelon",currentLatitude);
                 System.out.println(currentLatitude);
                 startActivity(intent);
+                }
+                else
+                {
+                    startup = false;
+                }
             }
         });
 
