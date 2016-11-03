@@ -12,7 +12,7 @@ public class ShakeDetector implements SensorEventListener {
 
 
     // Minimum acceleration needed to count as a shake movement
-    private static final int MIN_SHAKE_ACCELERATION = 3;
+    private static final int MIN_SHAKE_ACCELERATION = 6;
 
     // Minimum number of movements to register a shake
     private static final int MIN_MOVEMENTS = 2;

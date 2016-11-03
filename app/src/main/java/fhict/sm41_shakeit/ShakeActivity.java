@@ -50,6 +50,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     private List<Activiteit> activities;
     double currentLatitude;
     double currentLongitude;
+    private Boolean startup = true;
+    private int index;
     LocationManager locationManager;
 
 
@@ -76,17 +78,23 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         btnShake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(startup != true) {
                 //addShake();
                 //addMeeting();
                 //findMeeting();
-                //getActivities();
+                getActivities();
 
                 Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                 intent.putExtra("shakelat",currentLatitude);
                 System.out.println(currentLatitude);
-                intent.putExtra("shakelon",currentLongitude);
+                intent.putExtra("shakelon",currentLatitude);
                 System.out.println(currentLatitude);
                 startActivity(intent);
+                }
+                else
+                {
+                    startup = false;
+                }
             }
         });
 
@@ -103,6 +111,60 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
 
     }
 
+    private void addShake() {
+
+        String type = "shake";
+
+        Date now = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String currentTime = sdf.format(now);
+
+        System.out.println(currentTime);
+        System.out.println(currentLatitude);
+        System.out.println(currentLongitude);
+
+        Shake shake = new Shake(2, (float)currentLatitude, (float)currentLongitude, currentTime);
+
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+        bw.execute(type, shake, null);
+    }
+
+    private void addMeeting() {
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959 , "karten.nl" , "040123532");
+        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
+        Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
+
+
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String currentTime = sdf.format(now);
+
+        Meeting meeting = new Meeting(gebruiker, activiteit, currentTime);
+
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("meeting", meeting, null);
+    }
+
+    private void findMeeting() {
+        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959, "karten.nl" , "040123532");
+        Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie, null);
+
+        Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie, null);
+
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("find_meeting", activiteit1, null);
+
+    }
+
+    private void getActivities() {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("get_activities", null, null);
+
+    }
 
 
     @Override
@@ -198,60 +260,4 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         System.out.println((String) output);
 
     }
-
-    private void addShake() {
-
-        String type = "shake";
-
-        Date now = new Date();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String currentTime = sdf.format(now);
-
-        System.out.println(currentTime);
-        System.out.println(currentLatitude);
-        System.out.println(currentLongitude);
-
-        Shake shake = new Shake(2, (float)currentLatitude, (float)currentLongitude, currentTime);
-
-        BackgroundWorker bw = new BackgroundWorker(this, this);
-        bw.execute(type, shake, null);
-    }
-
-    private void addMeeting() {
-        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959 , "karten.nl" , "040123532");
-        Activiteit activiteit = new Activiteit(1, "karten", 2.00, 120, locatie, "http://imageshack.com/a/img923/851/INsNtf.jpg");
-        Gebruiker gebruiker = new Gebruiker(1, "Stan Guldemond", new Date(1991, 9, 3), 1, 1000, 100);
-
-
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String currentTime = sdf.format(now);
-
-        Meeting meeting = new Meeting(gebruiker, activiteit, currentTime);
-
-        BackgroundWorker bw = new BackgroundWorker(this, this);
-
-        bw.execute("meeting", meeting, null);
-    }
-
-    private void findMeeting() {
-        Locatie locatie = new Locatie("karten centrum", "eindhoven", "1234AB", "kerkstraat", "1", 51.4555001, 5.4805959, "karten.nl" , "040123532");
-        Activiteit activiteit1 = new Activiteit(1, "karten", 2.00, 120, locatie, null);
-
-        Activiteit activiteit2 = new Activiteit(2, "bowlen", 2.00, 120, locatie, null);
-
-        BackgroundWorker bw = new BackgroundWorker(this, this);
-
-        bw.execute("find_meeting", activiteit1, null);
-
-    }
-
-    private void getActivities() {
-        BackgroundWorker bw = new BackgroundWorker(this, this);
-
-        bw.execute("get_activities", null, null);
-
-    }
-
 }
