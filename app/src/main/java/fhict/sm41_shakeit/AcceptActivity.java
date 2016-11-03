@@ -54,7 +54,7 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
         });
         gestureDetector = new GestureDetector(new SwipeGestureDetector());
 
-        Button btnTerug = (Button) findViewById(R.id.button3);
+        Button btnTerug = (Button) findViewById(R.id.btnTerug);
 
         btnTerug.setOnClickListener(new View.OnClickListener() {
             @Override
