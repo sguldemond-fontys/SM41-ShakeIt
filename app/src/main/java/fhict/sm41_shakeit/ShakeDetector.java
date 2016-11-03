@@ -10,16 +10,15 @@ import android.hardware.SensorEventListener;
 
 public class ShakeDetector implements SensorEventListener {
 
-    private Boolean startup = true;
 
     // Minimum acceleration needed to count as a shake movement
-    private static final int MIN_SHAKE_ACCELERATION = 1;
+    private static final int MIN_SHAKE_ACCELERATION = 3;
 
     // Minimum number of movements to register a shake
-    private static final int MIN_MOVEMENTS = 1;
+    private static final int MIN_MOVEMENTS = 2;
 
     // Maximum time (in milliseconds) for the whole shake to occur
-    private static final int MAX_SHAKE_DURATION = 500;
+    private static final int MAX_SHAKE_DURATION = 1000;
 
     // Arrays to store gravity and linear acceleration values
     private float[] mGravity = { 0.0f, 0.0f, 0.0f };
@@ -47,7 +46,6 @@ public class ShakeDetector implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // This method will be called when the accelerometer detects a change.
-        //if(startup == false) {
             // Call a helper method that wraps code from the Android developer site
             setCurrentAcceleration(event);
 
@@ -83,8 +81,6 @@ public class ShakeDetector implements SensorEventListener {
                     }
                 }
             }
-        //}
-        //startup = false;
     }
 
     @Override
