@@ -24,7 +24,9 @@ import java.util.List;
 
 import domain.Activiteit;
 import domain.Gebruiker;
+import domain.Login;
 import domain.Meeting;
+import domain.Register;
 import domain.Shake;
 
 /**
@@ -58,7 +60,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/login.php";
 
-                String[] gebruiker = (String[]) params[1];
+                Login login = (Login) params[1];
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -69,8 +71,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
-                        + URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(login.getNaam(), "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(login.getWachtwoord(), "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -82,6 +84,47 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 String result = reader.readLine();
 
                 return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("Register")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_register.php";
+
+                Register register = (Register) params[1];
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(register.getNaam(), "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(register.getWachtwoord(), "UTF-8")+"&"
+                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(register.getGeboorteDatum(), "UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line=bufferedReader.readLine()) != null) {
+                    result += line + "/n";
+                }
+
+                System.out.println(result);
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -255,8 +298,6 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
         super.onPostExecute(result);
 
         delegate.processFinish(type, result);
-
-
     }
 
     @Override

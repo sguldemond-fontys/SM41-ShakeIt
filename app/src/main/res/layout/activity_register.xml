@@ -26,7 +26,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:layout_marginBottom="35dp"
         android:id="@+id/etGeboortedatum"
@@ -66,7 +65,7 @@
     <Button
         android:text="Terug naar inloggen"
         android:layout_width="175dp"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:textSize="10dp"
         android:id="@+id/btnRegistreren"
         android:background="@color/colorPrimary"

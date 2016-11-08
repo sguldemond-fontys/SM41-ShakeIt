@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import database.AsyncResponce;
 import database.BackgroundWorker;
+import domain.Register;
 
 public class RegisterActivity extends AppCompatActivity implements AsyncResponce {
 
@@ -43,28 +47,27 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponce
     }
 
     private void handleRegister(String name, String password , String geboortedatum) {
-        String[] input = new String[2];
-        input[0] = name;
-        input[1] = password;
-        input[2] = geboortedatum;
+//        String[] input = new String[3];
+//        input[0] = name;
+//        input[1] = password;
+//        input[2] = geboortedatum;
+
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//        String datum = sdf.format(geboortedatum);
+
+        Register register = new Register(name,password,geboortedatum);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bwType = "Register";
 
-        bw.execute(bwType, input, null);
+        bw.execute(bwType, register, null);
         handleExit();
     }
 
     @Override
     public void processFinish(String type, Object output) {
-        if(type.equals(bwType)) {
-            Boolean register = Boolean.parseBoolean((String)output);
-
-            if(register) {
-                handleExit();
-            }
-        }
+        System.out.println((String) output);
     }
 
     private void handleExit() {
