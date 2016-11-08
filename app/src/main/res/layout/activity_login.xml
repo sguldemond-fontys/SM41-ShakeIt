@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhict.sm41_shakeit.LoginActivity"
-    android:background="#c1ffdd">
+    android:background="@color/colorPrimary">
 
     <EditText
         android:layout_width="wrap_content"
@@ -20,18 +20,21 @@
         android:layout_alignRight="@+id/etPassword"
         android:layout_alignEnd="@+id/etPassword"
         android:layout_marginBottom="15dp"
-        android:id="@+id/etName" />
+        android:id="@+id/etName"
+        android:background="#dcd9d9"
+        android:hint="Gebruikersnaam" />
 
     <Button
         android:text="inloggen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnInloggen"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/etPassword"
         android:layout_alignStart="@+id/etPassword"
         android:layout_alignRight="@+id/etPassword"
-        android:layout_alignEnd="@+id/etPassword" />
+        android:layout_alignEnd="@+id/etPassword"
+        style="@style/basic_button"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -40,7 +43,20 @@
         android:ems="10"
         android:layout_marginBottom="61dp"
         android:id="@+id/etPassword"
-        android:layout_alignBottom="@+id/btnSubmit"
+        android:layout_alignBottom="@+id/btnInloggen"
+        android:layout_centerHorizontal="true"
+        android:background="#dcd9d9"
+        android:hint="Wachtwoord"
+        android:textSize="18sp" />
+
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="10dp"
+        android:textSize="10dp"
+        android:id="@+id/btnRegistreren"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/btnInloggen"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

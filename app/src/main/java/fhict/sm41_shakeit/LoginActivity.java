@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
 
         gebruikersId = 0;
 
-        Button btnSumbit = (Button)findViewById(R.id.btnSubmit);
+        Button btnSumbit = (Button)findViewById(R.id.btnInloggen);
 
         btnSumbit.setOnClickListener(new View.OnClickListener() {
             @Override
