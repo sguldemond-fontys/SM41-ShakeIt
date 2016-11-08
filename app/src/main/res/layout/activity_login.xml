@@ -52,12 +52,22 @@
     <Button
         android:text="Registreer hier!"
         android:layout_width="175dp"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:textSize="10dp"
         android:id="@+id/btnRegistreren"
         android:background="@color/colorPrimary"
         android:layout_marginTop="11dp"
         android:layout_below="@+id/btnInloggen"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Gebruikersnaam of wachtwoord zijn onjuist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:id="@+id/tvMelding"
+        android:layout_above="@+id/etName"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>

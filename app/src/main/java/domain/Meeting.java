@@ -3,7 +3,7 @@ package domain;
 import java.util.Date;
 
 /**
- * Created by stasiuz on 20/10/16.
+ * Created by Marc on 08-11-2016.
  */
 
 public class Meeting {

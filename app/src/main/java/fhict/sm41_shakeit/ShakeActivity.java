@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import android.os.Vibrator;
 import android.view.GestureDetector;
 
 import database.AsyncResponce;
@@ -45,7 +45,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     double currentLongitude;
     private int index;
     LocationManager locationManager;
-
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                         intent.putExtra("shakelat",currentLatitude);
                         intent.putExtra("shakelon",currentLongitude);
+                        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        v.vibrate(500);
                         startActivity(intent);
             }
         });
