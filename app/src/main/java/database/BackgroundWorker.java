@@ -30,6 +30,7 @@ import domain.Shake;
 /**
  * Created by Stan Guldemond on 07/10/16.
  */
+
 public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
     AsyncResponce delegate = null;
 

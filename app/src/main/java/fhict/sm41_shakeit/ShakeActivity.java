@@ -30,13 +30,6 @@ import domain.Gebruiker;
 import domain.Locatie;
 import domain.Meeting;
 import domain.Shake;
-import logic.JSONDecoder;
-
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.widget.Toast;
-
-import org.json.JSONException;
 
 /**
  * Created by Sander on 6-10-2016.

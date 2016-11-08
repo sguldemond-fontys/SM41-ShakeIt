@@ -23,7 +23,6 @@ import logic.JSONDecoder;
 
 public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
 
-    private GestureDetector gestureDetector;
     private List<Activiteit> activities;
 
     int index = 0;
