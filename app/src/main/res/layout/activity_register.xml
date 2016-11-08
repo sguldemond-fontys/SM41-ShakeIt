@@ -11,21 +11,8 @@
     tools:context="fhict.sm41_shakeit.LoginActivity"
     android:background="@color/colorPrimary">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_above="@+id/etPassword"
-        android:layout_alignRight="@+id/etPassword"
-        android:layout_alignEnd="@+id/etPassword"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/etName"
-        android:background="#dcd9d9"
-        android:hint="Gebruikersnaam" />
-
     <Button
-        android:text="inloggen"
+        android:text="Registreren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnInloggen"
@@ -41,22 +28,49 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_marginBottom="61dp"
+        android:layout_marginBottom="35dp"
+        android:id="@+id/etGeboortedatum"
+        android:background="#dcd9d9"
+        android:hint="Geboortedatum"
+        android:textSize="18sp"
+        android:layout_above="@+id/btnInloggen"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginBottom="29dp"
+        android:id="@+id/etName"
+        android:background="#dcd9d9"
+        android:hint="Gebruikersnaam"
+        android:layout_above="@+id/etPassword"
+        android:layout_alignLeft="@+id/etGeboortedatum"
+        android:layout_alignStart="@+id/etGeboortedatum" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
         android:id="@+id/etPassword"
-        android:layout_alignBottom="@+id/btnInloggen"
-        android:layout_centerHorizontal="true"
         android:background="#dcd9d9"
         android:hint="Wachtwoord"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_above="@+id/etGeboortedatum"
+        android:layout_alignLeft="@+id/etName"
+        android:layout_alignStart="@+id/etName"
+        android:layout_marginBottom="20dp" />
 
     <Button
-        android:text="Registreer hier!"
+        android:text="Terug naar inloggen"
         android:layout_width="175dp"
         android:layout_height="10dp"
         android:textSize="10dp"
         android:id="@+id/btnRegistreren"
         android:background="@color/colorPrimary"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="13dp"
         android:layout_below="@+id/btnInloggen"
         android:layout_centerHorizontal="true" />
 
