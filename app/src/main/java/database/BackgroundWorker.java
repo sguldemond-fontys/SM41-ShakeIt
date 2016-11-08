@@ -3,9 +3,6 @@ package database;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,14 +16,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import domain.Activiteit;
 import domain.Gebruiker;
-import domain.Login;
 import domain.Meeting;
-import domain.Register;
 import domain.Shake;
 
 /**
@@ -60,7 +54,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/login.php";
 
-                Login login = (Login) params[1];
+                String[] gebruiker = (String[]) params[1];
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -71,8 +65,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(login.getNaam(), "UTF-8")+"&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(login.getWachtwoord(), "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -96,7 +90,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_register.php";
 
-                Register register = (Register) params[1];
+                String[] gebruiker = (String[]) params[1];
+
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -107,9 +102,9 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(register.getNaam(), "UTF-8")+"&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(register.getWachtwoord(), "UTF-8")+"&"
-                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(register.getGeboorteDatum(), "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8")+"&"
+                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(gebruiker[2], "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
