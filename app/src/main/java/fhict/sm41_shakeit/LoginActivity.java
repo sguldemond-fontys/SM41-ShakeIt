@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
         gebruikersId = 0;
 
         Button btnSumbit = (Button)findViewById(R.id.btnInloggen);
+        Button btnRegister = (Button)findViewById(R.id.btnRegistreren);
 
         btnSumbit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,14 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
                 EditText etPassword = (EditText) findViewById(R.id.etPassword);
 
                 handleLogin(etName.getText().toString(), etPassword.getText().toString());
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
