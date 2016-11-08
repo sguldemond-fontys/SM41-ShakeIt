@@ -3,6 +3,7 @@ package domain;
 import java.util.Date;
 
 /**
+ * Created by Marc on 08-11-2016.
  */
 
 public class Register {
