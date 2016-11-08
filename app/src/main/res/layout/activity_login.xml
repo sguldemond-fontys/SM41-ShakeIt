@@ -50,6 +50,7 @@
         android:textSize="18sp" />
 
     <Button
+        android:text="Registreer hier!"
         android:layout_width="175dp"
         android:layout_height="10dp"
         android:textSize="10dp"
