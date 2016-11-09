@@ -34,7 +34,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleFindMeeting(int activiteitID) {
         String[] input = new String[1];
-        input[0] = String.valueOf(activiteitID);
+        input[0] = Integer.toString(activiteitID);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
@@ -55,15 +55,23 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleCreateMeeting(int gebruikerID, int activiteitID, String datum) {
         String[] input = new String[3];
-        input[0] = String.valueOf(gebruikerID);
-        input[1] = String.valueOf(activiteitID);
-        input[2] = String.valueOf(datum);
+        input[0] = Integer.toString(gebruikerID);
+        input[1] = Integer.toString(activiteitID);
+        input[2] = datum;
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bw.execute("meeting", input, null);
     }
 
+    private void handleCheckMeeting(int gebruikerID) {
+        String[] input = new String[1];
+        input[0] = Integer.toString(gebruikerID);
+
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("check_meeting", input, null);
+    }
 
     @Override
     public void processFinish(String type, Object output) {
@@ -86,9 +94,16 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
             }
         }
+        else if (type.equals("check_meeting")){
+            if (output != null) {
+                handleExit(1);
+            }
+        }
     }
 
     private void handleExit(int number) {
+
+
         if (number == 1) {
             TextView textView = (TextView) findViewById(R.id.tvMatch);
             textView.setText("Match gevonden!");
@@ -96,6 +111,9 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
         else if (number == 2){
             TextView textView = (TextView) findViewById(R.id.tvMatch);
             textView.setText("Wachten op match!");
+            //start timer
         }
+
+
     }
 }
