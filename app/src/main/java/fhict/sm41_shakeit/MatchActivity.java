@@ -55,7 +55,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleFindMeeting(int activiteitID) {
         String[] input = new String[1];
-        input[0] = String.valueOf(activiteitID);
+        input[0] = Integer.toString(activiteitID);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
@@ -87,7 +87,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleCheckMeeting(int gebruikerID) {
         String[] input = new String[1];
-        input[0] = String.valueOf(gebruikerID);
+        input[0] = Integer.toString(gebruikerID);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
