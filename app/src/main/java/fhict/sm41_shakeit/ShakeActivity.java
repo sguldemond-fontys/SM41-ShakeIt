@@ -44,6 +44,7 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     double currentLatitude;
     double currentLongitude;
     private int index;
+    int gebruikerID;
     LocationManager locationManager;
     private Context context;
 
@@ -57,19 +58,25 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        Intent intent = getIntent();
+        gebruikerID = intent.getIntExtra("gebruikerid",0);
+        System.out.println(gebruikerID);
+
         mShakeDetector = new ShakeDetector(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake() {
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                         intent.putExtra("shakelat",currentLatitude);
                         intent.putExtra("shakelon",currentLongitude);
-                        //Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                        //v.vibrate(500);
+                        intent.putExtra("gebruikerid",gebruikerID);
+                        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        v.vibrate(500);
                         startActivity(intent);
             }
         });
 
-        /*
+
         Button btnShake = (Button) findViewById(R.id.button);
 
         btnShake.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +87,13 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                     intent.putExtra("shakelat",currentLatitude);
                     System.out.println(currentLatitude);
                     intent.putExtra("shakelon",currentLongitude);
-                    System.out.println(currentLatitude);
+                    System.out.println(currentLongitude);
+                    intent.putExtra("gebruikerid",gebruikerID);
+                    System.out.println(gebruikerID);
                     startActivity(intent);
                 }
         });
-        */
+
 
         Button btnVoorkeuren = (Button) findViewById(R.id.button2);
 

@@ -3,9 +3,6 @@ package database;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,14 +16,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import domain.Activiteit;
 import domain.Gebruiker;
-import domain.Login;
 import domain.Meeting;
-import domain.Register;
 import domain.Shake;
 
 /**
@@ -61,7 +55,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/login.php";
 
-                Login login = (Login) params[1];
+                String[] gebruiker = (String[]) params[1];
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -72,8 +66,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(login.getNaam(), "UTF-8")+"&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(login.getWachtwoord(), "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -97,7 +91,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_register.php";
 
-                Register register = (Register) params[1];
+                String[] gebruiker = (String[]) params[1];
+
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -108,9 +103,9 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(register.getNaam(), "UTF-8")+"&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(register.getWachtwoord(), "UTF-8")+"&"
-                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(register.getGeboorteDatum(), "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruiker[0], "UTF-8")+"&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(gebruiker[1], "UTF-8")+"&"
+                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(gebruiker[2], "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -179,10 +174,11 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_meeting.php";
 
-                Meeting meeting = (Meeting) params[1];
-                Gebruiker gebruiker = meeting.getGebruiker1();
-                Activiteit activiteit = meeting.getActiviteit();
-                String datetime = meeting.getDatumTijd();
+//                Meeting meeting = (Meeting) params[1];
+//                Gebruiker gebruiker = meeting.getGebruiker1();
+//                Activiteit activiteit = meeting.getActiviteit();
+//                String datetime = meeting.getDatumTijd();
+                String[] meeting = (String[]) params[1];
 
 
                 URL url = new URL(shake_url);
@@ -194,9 +190,9 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(Integer.toString(gebruiker.getId()), "UTF-8")+"&"
-                        + URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(Integer.toString(activiteit.getId()), "UTF-8")+"&"
-                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(datetime, "UTF-8");
+                String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(meeting[0], "UTF-8")+"&"
+                        + URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(meeting[1], "UTF-8")+"&"
+                        + URLEncoder.encode("datumtijd", "UTF-8")+"="+URLEncoder.encode(meeting[2], "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -224,7 +220,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
 
-                Activiteit activiteit = (Activiteit) params[1];
+                String[] meetingid = (String[]) params[1];
+
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -235,7 +232,87 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(Integer.toString(activiteit.getId()), "UTF-8");
+                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(meetingid[0], "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("update_meeting")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_meeting.php";
+
+//                Meeting meeting = (Meeting) params[1];
+//                Gebruiker gebruiker = meeting.getGebruiker1();
+                String[] meeting = (String[]) params[1];
+                System.out.println(meeting[0]+" gebruiker 5");
+                System.out.println(meeting[1]+" Meeting 4");
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("tweedegebruikerid", "UTF-8")+"="+URLEncoder.encode(meeting[0], "UTF-8")+"&"
+                        + URLEncoder.encode("meetingid", "UTF-8")+"="+URLEncoder.encode(meeting[1], "UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line=bufferedReader.readLine()) != null) {
+                    result += line + "/n";
+                }
+
+                System.out.println(result);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("find_meeting")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
+
+                String[] meetingid = (String[]) params[1];
+
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(meetingid[0], "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

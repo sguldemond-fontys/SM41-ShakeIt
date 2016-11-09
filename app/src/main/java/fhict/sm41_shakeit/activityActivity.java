@@ -34,6 +34,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
     private List<Activiteit> activities;
     private double shakelat;
     private double shakelon;
+    private int gebruikerID;
 
     int index = 0;
 
@@ -42,6 +43,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
         Intent intent = getIntent();
         shakelat = intent.getDoubleExtra("shakelat",0);
         shakelon = intent.getDoubleExtra("shakelon",0);
+        gebruikerID = intent.getIntExtra("gebruikerid",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
         activities = new ArrayList<>();
@@ -54,6 +56,7 @@ public class activityActivity extends AppCompatActivity implements AsyncResponce
             public void onClick(View view) {
                 Intent intent = new Intent(activityActivity.this, AcceptActivity.class);
                 intent.putExtra("index", index);
+                intent.putExtra("gebruikerid",gebruikerID);
                 startActivity(intent);
             }
         });

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -26,6 +28,7 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
     private List<Activiteit> activities;
 
     int index = 0;
+    private int gebruikerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,19 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
 
         Intent intent = getIntent();
         index = intent.getIntExtra("index", 0);
+        gebruikerID = intent.getIntExtra("gebruikerid",0);
         index--;
+
+        Button match = (Button) findViewById(R.id.btnMatch);
+        match.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AcceptActivity.this, MatchActivity.class);
+                intent.putExtra("activiteitid", activities.get(index).getId());
+                intent.putExtra("gebruikerid",gebruikerID);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -99,3 +114,5 @@ public class AcceptActivity extends AppCompatActivity implements AsyncResponce {
         }
     }
 }
+
+

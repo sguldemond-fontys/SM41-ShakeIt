@@ -8,11 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import database.AsyncResponce;
 import database.BackgroundWorker;
-import domain.Login;
 
 public class LoginActivity extends AppCompatActivity implements AsyncResponce {
 
@@ -35,7 +32,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
             public void onClick(View v) {
                 EditText etName = (EditText) findViewById(R.id.etName);
                 EditText etPassword = (EditText) findViewById(R.id.etPassword);
-
                 handleLogin(etName.getText().toString(), etPassword.getText().toString());
             }
         });
@@ -50,17 +46,16 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
     }
 
     private void handleLogin(String name, String password) {
-//        String[] input = new String[2];
-//        input[0] = name;
-//        input[1] = password;
+        String[] input = new String[2];
+        input[0] = name;
+        input[1] = password;
 
-        Login login = new Login(name,password);
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bwType = "login";
 
-        bw.execute(bwType, login, null);
+        bw.execute(bwType, input, null);
     }
 
     @Override
@@ -81,7 +76,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleExit() {
         Intent intent = new Intent(LoginActivity.this, ShakeActivity.class);
-        intent.putExtra("gebruikersid", gebruikersId);
+        intent.putExtra("gebruikerid", gebruikersId);
+        System.out.println(gebruikersId);
         startActivity(intent);
     }
 }

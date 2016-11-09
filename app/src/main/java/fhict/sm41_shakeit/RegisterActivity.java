@@ -12,7 +12,6 @@ import java.util.Date;
 
 import database.AsyncResponce;
 import database.BackgroundWorker;
-import domain.Register;
 
 public class RegisterActivity extends AppCompatActivity implements AsyncResponce {
 
@@ -47,21 +46,16 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponce
     }
 
     private void handleRegister(String name, String password , String geboortedatum) {
-//        String[] input = new String[3];
-//        input[0] = name;
-//        input[1] = password;
-//        input[2] = geboortedatum;
-
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//        String datum = sdf.format(geboortedatum);
-
-        Register register = new Register(name,password,geboortedatum);
+        String[] input = new String[3];
+        input[0] = name;
+        input[1] = password;
+        input[2] = geboortedatum;
 
         BackgroundWorker bw = new BackgroundWorker(this, this);
 
         bwType = "Register";
 
-        bw.execute(bwType, register, null);
+        bw.execute(bwType, input, null);
         handleExit();
     }
 
