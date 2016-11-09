@@ -30,27 +30,6 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
         ActiviteitID = intent.getIntExtra("activiteitid", 0);
         handleFindMeeting(ActiviteitID);
 
-//        Button btnSumbit = (Button)findViewById(R.id.btnInloggen);
-//        Button btnRegister = (Button)findViewById(R.id.btnRegistreren);
-//
-//
-//        btnSumbit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EditText etName = (EditText) findViewById(R.id.etName);
-//                EditText etPassword = (EditText) findViewById(R.id.etPassword);
-//
-//
-//            }
-//        });
-//
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MatchActivity.this, RegisterActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void handleFindMeeting(int activiteitID) {

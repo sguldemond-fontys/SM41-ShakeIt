@@ -31,4 +31,18 @@ public class JSONDecoder {
 
         return activities;
     }
+
+    public static String[] decodeVoorkeuren(String json) throws JSONException {
+        String[] voorkeuren = new String[4];
+
+        JSONArray jsonArray = new JSONArray(json);
+        JSONObject j = jsonArray.getJSONObject(0);
+
+        voorkeuren[0] = j.getString("WilOntmoeten");
+        voorkeuren[1] = j.getString("Radius");
+        voorkeuren[2] = j.getString("Budget");
+        voorkeuren[3] = j.getString("Tijd");
+
+        return voorkeuren;
+    }
 }

@@ -174,12 +174,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_meeting.php";
 
-//                Meeting meeting = (Meeting) params[1];
-//                Gebruiker gebruiker = meeting.getGebruiker1();
-//                Activiteit activiteit = meeting.getActiviteit();
-//                String datetime = meeting.getDatumTijd();
                 String[] meeting = (String[]) params[1];
-
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -254,10 +249,8 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
 
         else if(type.equals("update_meeting")) {
             try {
-                String shake_url = "http://i254083.iris.fhict.nl/sm41/insert_meeting.php";
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/update_meeting.php";
 
-//                Meeting meeting = (Meeting) params[1];
-//                Gebruiker gebruiker = meeting.getGebruiker1();
                 String[] meeting = (String[]) params[1];
                 System.out.println(meeting[0]+" gebruiker 5");
                 System.out.println(meeting[1]+" Meeting 4");
@@ -301,7 +294,6 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
 
                 String[] meetingid = (String[]) params[1];
-
 
                 URL url = new URL(shake_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -353,6 +345,84 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 while ((line = reader.readLine()) != null) {
                     result += line;
                 }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("update_gebruiker")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/update_gebruiker.php";
+
+                String[] input = (String[]) params[1];
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("gebruikerid", "UTF-8")+"="+URLEncoder.encode(input[0], "UTF-8")+"&"
+                        + URLEncoder.encode("wilontmoeten", "UTF-8")+"="+URLEncoder.encode(input[1], "UTF-8")+"&"
+                        + URLEncoder.encode("kilometerrange", "UTF-8")+"="+URLEncoder.encode(input[2], "UTF-8")+"&"
+                        + URLEncoder.encode("budget", "UTF-8")+"="+URLEncoder.encode(input[3], "UTF-8")+"&"
+                        + URLEncoder.encode("tijd", "UTF-8")+"="+URLEncoder.encode(input[4], "UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line=bufferedReader.readLine()) != null) {
+                    result += line + "/n";
+                }
+
+                System.out.println(result);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("get_voorkeuren")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/get_voorkeuren.php";
+
+                String gebruikerid = (String) params[1];
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("gebruikerid", "UTF-8")+"="+URLEncoder.encode(gebruikerid, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
 
                 return result;
 

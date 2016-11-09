@@ -9,25 +9,40 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import domain.Gebruiker;
+import org.json.JSONException;
 
+import database.AsyncResponce;
+import database.BackgroundWorker;
+import logic.JSONDecoder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AsyncResponce {
+
+    int gebruikerID = 0;
+
+    EditText range;
+    EditText budget;
+    EditText tijd;
+    Switch ontmoeten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        gebruikerID = intent.getIntExtra("gebruikerid", 0);
+        System.out.println("GebruikersID in MainActivity: " + gebruikerID);
+
         Button continueButton = (Button) findViewById(R.id.continueButton);
-        //final EditText personen = (EditText) findViewById(R.id.personen);
-        final EditText range = (EditText) findViewById(R.id.range);
-        final EditText budget = (EditText) findViewById(R.id.budget);
-        final EditText tijd = (EditText) findViewById(R.id.tijd);
-        final Switch ontmoeten = (Switch) findViewById(R.id.ontmoeten);
+
+        getVoorkeuren(gebruikerID);
+
+        range = (EditText) findViewById(R.id.range);
+        budget = (EditText) findViewById(R.id.budget);
+        tijd = (EditText) findViewById(R.id.tijd);
+        ontmoeten = (Switch) findViewById(R.id.ontmoeten);
+
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,30 +67,71 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
+                    int ontmoetenInt = 0;
                     if(ontmoeten.isChecked()) {
-                        try {
-                            Gebruiker gebruiker = new Gebruiker(1, "", dateFormat.parse("20/10/2106"), 1, Integer.parseInt(range.getText().toString()), Double.parseDouble(budget.getText().toString()));
-                        } catch (ParseException e)
-                        {
-
-                        }
+                        ontmoetenInt = 1;
                     }
-                    else
-                    {
-                        try {
-                            Gebruiker gebruiker = new Gebruiker(1, "", dateFormat.parse("20/10/2106"), 0, Integer.parseInt(range.getText().toString()), Double.parseDouble(budget.getText().toString()));
-                        } catch (ParseException e)
-                        {
 
-                        }
-                    }
+                    updateGebruiker(gebruikerID, ontmoetenInt, range.getText().toString(), budget.getText().toString(), tijd.getText().toString());
 
                     Intent intent = new Intent(MainActivity.this, ShakeActivity.class);
+                    intent.putExtra("gebruikerid", gebruikerID);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private void updateGebruiker(int gebruikersid, int wilontmoeten, String kilometerrange, String budget, String tijd) {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        String[] input = new String[5];
+        input[0] = Integer.toString(gebruikersid);
+        input[1] = Integer.toString(wilontmoeten);
+        input[2] = kilometerrange;
+        input[3] = budget;
+        input[4] = tijd;
+
+        bw.execute("update_gebruiker", input, null);
+    }
+
+    private void getVoorkeuren(int gebruikersid) {
+        BackgroundWorker bw = new BackgroundWorker(this, this);
+
+        bw.execute("get_voorkeuren", Integer.toString(gebruikersid), null);
+    }
+
+    @Override
+    public void processFinish(String type, Object output) {
+        if(type.equals("get_voorkeuren")) {
+            try {
+                String[] voorkeuren = JSONDecoder.decodeVoorkeuren((String)output);
+                setVoorkeuren(voorkeuren);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setVoorkeuren(String[] voorkeuren) {
+        if(voorkeuren[0].equals("1")) {
+            ontmoeten.setChecked(true);
+        }
+
+        else {
+            ontmoeten.setChecked(false);
+        }
+
+        if(!voorkeuren[1].equals("null")) {
+            range.setText(voorkeuren[1]);
+        }
+
+        if(!voorkeuren[2].equals("null")) {
+            budget.setText(voorkeuren[2]);
+        }
+
+        if(!voorkeuren[3].equals("null")) {
+            tijd.setText(voorkeuren[3]);
+        }
     }
 }

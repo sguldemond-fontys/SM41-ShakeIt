@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import android.os.Vibrator;
-import android.view.GestureDetector;
-
 import database.AsyncResponce;
 import database.BackgroundWorker;
 import domain.Activiteit;
@@ -101,6 +99,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShakeActivity.this, MainActivity.class);
+                intent.putExtra("gebruikerid", gebruikerID);
+                System.out.println("GebruikersID in ShakeActivity: " + gebruikerID);
                 startActivity(intent);
             }
         });
