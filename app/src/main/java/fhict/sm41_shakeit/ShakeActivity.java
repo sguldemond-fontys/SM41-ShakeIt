@@ -50,6 +50,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+
         setContentView(R.layout.shake);
         activities = new ArrayList<>();
         // ShakeDetector initialization
@@ -61,8 +63,8 @@ public class ShakeActivity extends AppCompatActivity implements LocationListener
                         Intent intent = new Intent(ShakeActivity.this, activityActivity.class);
                         intent.putExtra("shakelat",currentLatitude);
                         intent.putExtra("shakelon",currentLongitude);
-                        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                        v.vibrate(500);
+                        //Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        //v.vibrate(500);
                         startActivity(intent);
             }
         });
