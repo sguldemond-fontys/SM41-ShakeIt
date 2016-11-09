@@ -291,7 +291,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
 
         else if(type.equals("check_meeting")) {
             try {
-                String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/check_meeting.php";
 
                 String[] gebruikerid = (String[]) params[1];
 
@@ -305,6 +305,115 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(gebruikerid[0], "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("get_firstuser")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/get_firstuser.php";
+
+                String meetingid = (String)params[1];
+
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("meetingid", "UTF-8")+"="+URLEncoder.encode(meetingid, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("get_seconduser")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/get_seconduser.php";
+
+                String meetingid = (String) params[1];
+
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(meetingid, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String result = reader.readLine();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(type.equals("get_meetingid")) {
+            try {
+                String shake_url = "http://i254083.iris.fhict.nl/sm41/get_meetingid.php";
+
+                String[] meetingid = (String[]) params[1];
+
+
+                URL url = new URL(shake_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(meetingid[1], "UTF-8")+"&"
+                        + URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(meetingid[0], "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

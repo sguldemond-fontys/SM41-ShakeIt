@@ -12,7 +12,7 @@
     <string name="shake">SCHUD MIJ!</string>
     <string name="activiteit_naam">Shake it!</string>
     <string name="continue_button">">"</string>
-    <string name="acceptActivityButton">"Accepteren!"</string>
+    <string name="acceptActivityButton">"Details bekijken"</string>
     <string name="denyActivityButton">"Deny activity!"</string>
     <string name="noActivities">"Er zijn geen activiteiten die aan uw eisen voldoen"</string>
     <string name="do_shake">fake shake</string>
@@ -21,5 +21,6 @@
     <string name="jouw_voorkeuren">jouw voorkeuren</string>
     <string name="terug">terug naar hoofdscherm</string>
     <string name="huidige_locatie">van jou huidige locatie</string>
+    <string name="accepteren">Accepteren</string>
 
 </resources>

@@ -11,15 +11,19 @@
     </LinearLayout>
 
     <TextView
-        android:text="TextView"
+        style="@style/TextStyleBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvMatch" />
+        android:id="@+id/tvMatch"
+        android:textAlignment="center"
+        android:paddingTop="30dp" />
 
     <TextView
-        android:text="TextView"
+        style="@style/TextStyleBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4" />
+        android:id="@+id/tvNaam"
+        android:textAlignment="center"
+        android:paddingTop="30dp" />
 
 </LinearLayout>
