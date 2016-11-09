@@ -376,7 +376,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(meetingid, "UTF-8");
+                String post_data = URLEncoder.encode("meetingid", "UTF-8")+"="+URLEncoder.encode(meetingid, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

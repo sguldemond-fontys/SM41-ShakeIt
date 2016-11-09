@@ -61,12 +61,13 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
     @Override
     public void processFinish(String type, Object output) {
         if(type.equals(bwType)) {
-            gebruikersId = Integer.parseInt((String)output);
+            if (output != null) {
+                gebruikersId = Integer.parseInt((String) output);
 
-            if(gebruikersId != 0) {
-                handleExit();
+                if (gebruikersId != 0) {
+                    handleExit();
+                }
             }
-
             else{
                 TextView melding = (TextView) findViewById(R.id.tvMelding);
                 melding.setVisibility(View.VISIBLE);

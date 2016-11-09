@@ -110,7 +110,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
         else if (type.equals("check_meeting")){
             if (output != null) {
-                System.out.println(output);
+//                System.out.println(output);
                 t.cancel();
                 t.purge();
                 handleFindSeconduser((String)output);
@@ -122,7 +122,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
         else if (type.equals("get_firstuser")){
             Naam = (String)output;
-            System.out.println("firstuser: " + output);
+//            System.out.println("firstuser: " + output);
             handleExit(1);
         }
 
@@ -132,7 +132,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
         else if (type.equals("get_seconduser")){
             Naam = (String)output;
-            System.out.println("seconduser: " +output);
+//            System.out.println("seconduser: " +output);
             handleExit(1);
         }
     }
@@ -144,7 +144,7 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
             textView.setText("Match gevonden!");
             TextView textView2 = (TextView) findViewById(R.id.tvNaam);
             textView2.setText("je hebt een match met: " + Naam);
-            System.out.println("je hebt een match met: " + Naam);
+//            System.out.println("je hebt een match met: " + Naam);
         }
         else if (number == 2) {
             TextView textView = (TextView) findViewById(R.id.tvMatch);
@@ -155,10 +155,16 @@ public class MatchActivity extends AppCompatActivity implements AsyncResponce {
 
     }
     public class matchTimer extends TimerTask {
+        @Override
         public void run() {
-            handleCheckMeeting(GebruikerID);
-            timerindex++;
-            System.out.println(timerindex);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    handleCheckMeeting(GebruikerID);
+//                    timerindex++;
+//                    System.out.println(timerindex);
+                }
+            });
         }
     }
 
