@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
             public void onClick(View v) {
                 EditText etName = (EditText) findViewById(R.id.etName);
                 EditText etPassword = (EditText) findViewById(R.id.etPassword);
-
                 handleLogin(etName.getText().toString(), etPassword.getText().toString());
             }
         });
@@ -77,7 +76,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponce {
 
     private void handleExit() {
         Intent intent = new Intent(LoginActivity.this, ShakeActivity.class);
-        intent.putExtra("gebruikersid", gebruikersId);
+        intent.putExtra("gebruikerid", gebruikersId);
+        System.out.println(gebruikersId);
         startActivity(intent);
     }
 }
