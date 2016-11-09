@@ -295,11 +295,11 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
             }
         }
 
-        else if(type.equals("find_meeting")) {
+        else if(type.equals("check_meeting")) {
             try {
                 String shake_url = "http://i254083.iris.fhict.nl/sm41/find_meeting.php";
 
-                String[] meetingid = (String[]) params[1];
+                String[] gebruikerid = (String[]) params[1];
 
 
                 URL url = new URL(shake_url);
@@ -311,7 +311,7 @@ public class BackgroundWorker extends AsyncTask<Object, Object, Object> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("activiteitid", "UTF-8")+"="+URLEncoder.encode(meetingid[0], "UTF-8");
+                String post_data = URLEncoder.encode("eerstegebruikerid", "UTF-8")+"="+URLEncoder.encode(gebruikerid[0], "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
